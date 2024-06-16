@@ -8,20 +8,37 @@ import { ApiService } from '../api.service';
 })
 export class HomeComponent {
   dogPhotos: any;
+  otherDogPhotos: any;
 
   constructor(private apiService: ApiService) { }
 
   onButtonClick() {
     this.loadDogPhotos();
+    this.loadOtherDogPhotos();
+
   }
 
   loadDogPhotos() {
-    this.apiService.getDogPhotos().subscribe(data => {
-      this.dogPhotos = data;
-      console.log(this.dogPhotos);
-    },
-    error => {
-      console.log(error);
+    this.apiService.getDogPhotos().subscribe({
+      next: data => {
+        this.dogPhotos = data;
+        console.log(this.dogPhotos);
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
-}
+
+  loadOtherDogPhotos() {
+    this.apiService.getOtherDogPhotos().subscribe({
+      next: data => {
+        this.otherDogPhotos = data;
+        console.log(this.otherDogPhotos);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+};

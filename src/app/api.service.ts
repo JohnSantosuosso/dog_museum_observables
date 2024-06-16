@@ -11,4 +11,8 @@ export class ApiService {
   getDogPhotos(): Observable<any> {
     return this.http.get('https://random.dog/woof.json');
   }
+
+  getOtherDogPhotos(): Observable<any> {
+    return this.http.get('https://dog.ceo/api/breeds/image/random');
+  }
 }
