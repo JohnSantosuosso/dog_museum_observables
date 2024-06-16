@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,21 @@ export class HomeComponent {
   constructor(private apiService: ApiService) { }
 
   onButtonClick() {
-    this.loadDogPhotos();
-    this.loadOtherDogPhotos();
-    this.loadMuseumPhotos();
-
+    forkJoin([
+      this.apiService.getDogPhotos(),
+      this.apiService.getOtherDogPhotos(),
+      this.apiService.getMuseumPhotos()
+    ]).subscribe({
+      next: ([dogPhotos, otherDogPhotos, museumPhotos]) => {
+        this.dogPhotos = dogPhotos;
+        this.otherDogPhotos = otherDogPhotos;
+        this.museumPhotos = museumPhotos;
+        console.log(this.dogPhotos, this.otherDogPhotos, this.museumPhotos);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
 
   loadDogPhotos() {

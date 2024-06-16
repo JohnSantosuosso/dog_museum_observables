@@ -17,6 +17,6 @@ export class ApiService {
   }
 
   getMuseumPhotos(): Observable<any> {
-    return this.http.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${Math.floor(Math.random() * 100 + 1)}`);
+    return this.http.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${Math.floor(Math.random() * 500 + 1)}`);
   }
 }
