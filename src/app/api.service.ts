@@ -15,4 +15,8 @@ export class ApiService {
   getOtherDogPhotos(): Observable<any> {
     return this.http.get('https://dog.ceo/api/breeds/image/random');
   }
+
+  getMuseumPhotos(): Observable<any> {
+    return this.http.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${Math.floor(Math.random() * 100 + 1)}`);
+  }
 }
